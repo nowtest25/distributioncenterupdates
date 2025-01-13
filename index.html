@@ -1,0 +1,721 @@
+<style>
+    body {
+        font-family: 'Open Sans', sans-serif;
+        background-color: #f9f9f9;
+    }
+    .container {
+        max-width: 900px;
+        margin: auto;
+        padding: 30px;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        display: block;
+    }
+    .header {
+        background-color: #0056b3;
+        color: #fff;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        grid-column: span 2;
+        border-radius: 2.5%;
+    }
+    .header .logo-container {
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .header .operations-weekly {
+        flex: 1;
+    }
+    .header h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+    .logo {
+        width: 100px;
+        height: auto;
+    }
+    .section {
+        margin-top: 20px;
+        flex: none;
+        page-break-before: always;
+    }
+    .section h5 {
+        color: #333;
+        margin-bottom: 15px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .section ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    .section ul li {
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        width: calc(100% - 30px);
+        box-sizing: border-box;
+    }
+    .section ul li::before {
+        content: "";
+        color: #4CAF50;
+        margin-right: 15px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .priority-list ul li::before {
+        content: "";
+    }
+
+    .action-items ul li::before {
+        content: "";
+    }
+
+    .updates ul li::before {
+        content: "";
+    }
+    .priority-list, .action-items, .updates {
+        height: 100%;
+    }
+    .combined-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100%;
+    }
+    .priority-list h5, .action-items h5, .updates h5 {
+        font-size: 18px;
+    }
+    .priority-list ul li::before, .action-items ul li::before, .updates ul li::before {
+        font-size: 18px;
+    }
+    .open-items ul li::before {
+        content: "";
+    }
+    .action-items ul, .priority-list ul, .updates ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .action-items ul li, .priority-list ul li, .updates ul li {
+        padding-left: 0;
+    }
+
+    .updates ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .action-items ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .priority-list ul {
+        list-style-type: disc;
+        padding-left: 20px;
+    }
+    .status-in-progress {
+        color: #ff4000; 
+    }
+    .status-in-business-user-confirmation {
+        color: #ff9d00; 
+    }
+    .status-in-review {
+        color: #007BFF; 
+    }
+    .status-datamigration {
+        color: #de2d2d; 
+    }
+
+    
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        background-color: #fff;
+        margin: 20px 0;
+    }
+    th {
+        background-color: #0056b3; 
+        color: #fff; 
+        text-align: center; 
+    }
+    td:nth-child(1), td:nth-child(2), td:nth-child(5) {
+        text-align: center;
+    }
+    td:nth-child(3) {
+        width: 40%; 
+    }
+    td:nth-child(4) {
+        width: 20%; 
+    }
+    td:nth-child(6), td:nth-child(7) {
+        width: 10%; 
+        text-align: center; 
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2; 
+    }
+    tr:nth-child(odd) {
+        background-color: #ffffff; 
+    }
+    td:nth-child(6) {
+        text-align: center;
+    }
+
+    @media print {
+        body {
+            -webkit-print-color-adjust: exact; 
+            color-adjust: exact; 
+            margin: 0; 
+            padding: 0; 
+        }
+        .container {
+            box-shadow: none; 
+            margin: 0; 
+            padding: 5px; 
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            background-color: #fff; 
+            margin: 0; 
+        }
+        th, td {
+            border: 1px solid #000; 
+            padding: 3px; 
+            font-size: 10px; 
+        }
+        tr {
+            page-break-inside: avoid; 
+        }
+       
+        tr:nth-child(8) {
+            page-break-inside: avoid; 
+        }
+       
+        .no-print {
+            display: none; 
+        }
+        
+        h2, h5 {
+            margin: 2px 0; 
+        }
+        p {
+            margin: 2px 0; 
+        }
+       
+        .section {
+            page-break-after: avoid; 
+            margin-top: 10px; 
+        }
+      
+        .header {
+            background-color: #0056b3; 
+            color: #fff; 
+            padding: 10px; 
+            margin-bottom: 10px;
+        }
+        
+        table {
+            page-break-inside: avoid; 
+            margin-bottom: 10px; 
+        }
+    }
+
+    .section.open-items {
+        margin-top: 20px;
+        flex: none;
+        page-break-before: always; 
+    }
+
+    
+    .section.open-items table tbody tr td:nth-child(4) {
+        text-align: center; 
+    }
+    .priority-icon {
+        display: inline-block;
+        width: 30px; 
+        height: 30px; 
+        border-radius: 50%; 
+        background-color: #de4402; 
+        color: white;
+        text-align: center; 
+        line-height: 30px; 
+        font-weight: bold; 
+    }
+    .priority-icon2 {
+        display: inline-block;
+        width: 30px; 
+        height: 30px; 
+        border-radius: 50%; 
+        background-color: #f76121; 
+        color: white; 
+        text-align: center; 
+        line-height: 30px; 
+        font-weight: bold; 
+    }
+    .priority-icon3 {
+        display: inline-block;
+        width: 30px; 
+        height: 30px; 
+        border-radius: 50%; 
+        background-color: #d58768; 
+        color: white; 
+        text-align: center; 
+        line-height: 30px; 
+        font-weight: bold; 
+    }
+    .priority-icon4 {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%; 
+        background-color: #e09879; 
+        color: white;
+        text-align: center; 
+        line-height: 30px; 
+        font-weight: bold; 
+    }
+    .status-on-hold {
+        color: #ff4000; 
+        font-weight: bold;
+    }
+    .status-ticket-in-progress {
+        color: #007BFF;
+        font-weight: bold;
+    }
+    .status-business-user-confirmation {
+        color: #ff9d00; 
+        font-weight: bold;
+    }
+    .status-release-assigned {
+        color: #28a745; 
+        font-weight: bold;
+    }
+    .status-default {
+        color: #000; 
+    }
+</style>
+</style>
+
+<div class="container">
+    <div class="header">
+        <div class="logo-container">
+            <img src="/Issue_Tracker/NO_Image.png" alt="Logo" class="logo">
+        </div>
+        <div class="operations-weekly">
+            <h2>Distribution Center | Prioritized Issues List  - <span id="current-date"></span></h2>
+        </div>
+    </div>
+    <div class="section open-items">
+        <h5><span class="open-items-icon">⚠️</span> D365 Open Issues</h5>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>System</th>
+                    <th>Issue</th>
+                    <th>Priority</th>
+                    <th>Aggregation</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>436</td>
+                    <td>D365</td>
+                    <td>Sequence of Events from D365 Not Arriving in Order</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>433</td>
+                    <td>D365</td>
+                    <td>D365 WMS App Only Displays Frames for Breakage; Lenses Missing</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>424</td>
+                    <td>IRIS/D365</td>
+                    <td>D365 Inventory Issue DC1</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>425</td>
+                    <td>IRIS/D365</td>
+                    <td>Order Release Delays in IRIS: Impact on D365 and DC1 Processing Efficiency</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>400</td>
+                    <td>IRIS</td>
+                    <td>RXI File Fails to Update FSC Value After Order Transfer to DC2</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>390</td>
+                    <td>IRIS/D365</td>
+                    <td>Order Routing Issue: Incompatible Orders Sent to Incorrect Distribution Centers</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>End to End</td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>373</td>
+                    <td>IRIS</td>
+                    <td>Duplicate Trace Files in RXI File Preventing Order Processing</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>374</td>
+                    <td>IRIS</td>
+                    <td>Uncuts DC2 Test</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>354</td>
+                    <td>IRIS</td>
+                    <td>Resolving Batch Processing Limits for Status Updates</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>349</td>
+                    <td>D365</td>
+                    <td>Work not being created where inventory is available</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>End to End</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>350</td>
+                    <td>IRIS/D365</td>
+                    <td>open inbounds and outbound loads</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Shipping</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>337</td>
+                    <td>D365</td>
+                    <td>Orders Starting Without Frame Receipt</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>End to End</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>342</td>
+                    <td>D365</td>
+                    <td>Incorrect Trace Labeling on Pick Tickets - Order 135799640</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>322</td>
+                    <td>IRIS/D365</td>
+                    <td>Resolve Stuck Inventory on HCSC Users for Process Improvement</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>302</td>
+                    <td>IRIS</td>
+                    <td>Job Sheet Missing Tint Color Details</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-release-assigned">Release Assigned</td>
+                </tr>
+                <tr>
+                    <td>258</td>
+                    <td>D365</td>
+                    <td>Shipping Errors/ ASN Issues</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>End to End</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>206</td>
+                    <td>D365</td>
+                    <td>Enhancement: Restrict "Trace to Binstaging" License Plate to "FR" LP Prefix</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>207</td>
+                    <td>IRIS/D365</td>
+                    <td>Rejected Order (Mounting Only) - No Staging Bin / DC1 Frame Picks Not Assigned</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>185</td>
+                    <td>IRIS</td>
+                    <td>Bin Location Missing from RXI</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>187</td>
+                    <td>IRIS</td>
+                    <td>IRIS RXI Failing: Missing Job Sheets for Frame to Mount Area</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td></td>
+                    <td class="status-release-assigned">Release Assigned</td>
+                </tr>
+                <tr>
+                    <td>34</td>
+                    <td>IRIS/D365</td>
+                    <td>D365 Work Processing Issues: Mount-Only Jobs and Cross-Dock Bin Locations</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>End to End</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>40</td>
+                    <td>D365</td>
+                    <td>Picking Location Issue for Replenishments and New Store Orders</td>
+                    <td><span class="priority-icon">1</span></td>
+                    <td>Processing</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>385</td>
+                    <td>IRIS</td>
+                    <td>ShipStation Upload Issue</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>331</td>
+                    <td>D365</td>
+                    <td>Frame Received, No Work Created - Example 135635829</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Receiving</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>325</td>
+                    <td>D365</td>
+                    <td>Post-Shipment Work Created for Stanton Cases: Job IDs Listed</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>297</td>
+                    <td>D365</td>
+                    <td>DC1 Orders Stalled Due to Frozen Work Status</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>299</td>
+                    <td>D365</td>
+                    <td>Short Pick Errors Due to Negative Quantity Restrictions</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>270</td>
+                    <td>IRIS</td>
+                    <td>Prevent Status Updates for Shipped Orders and Ensure DB Accuracy</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>223</td>
+                    <td>IRIS</td>
+                    <td>Job Tracking: Orders Updating Post-Shipment/Notification</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-release-assigned">Release Assigned</td>
+                </tr>
+                <tr>
+                    <td>218</td>
+                    <td>IRIS</td>
+                    <td>Frame Supply Type Update Needed for Rejected Frames</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>205</td>
+                    <td>IRIS/D365</td>
+                    <td>Enhancement: D365 - Manage DC1 Lens Special Orders & Lab Breakages</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>182</td>
+                    <td>D365</td>
+                    <td>Missing Frame Work Creation</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Receiving</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>167</td>
+                    <td>D365</td>
+                    <td>WMS Error: Load ID Not Found on Order</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>138</td>
+                    <td>D365</td>
+                    <td>Slow Receiving Process and System Timeouts</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>93</td>
+                    <td>D365</td>
+                    <td>Breakage in WMS App: Stuck on Iris Job Order Entry</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>Processing</td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>59</td>
+                    <td>D365</td>
+                    <td>Order Status: Orders Stuck in Production</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td>End to End</td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>341</td>
+                    <td>IRIS</td>
+                    <td>DC1 full job sales orders are having the 'Order fulfilment policy' as blank.</td>
+                    <td><span class="priority-icon2">2</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>428</td>
+                    <td>D365</td>
+                    <td>D365 is not updating Full jobs to "edging" in Iris when they are moved.</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>388</td>
+                    <td>IRIS</td>
+                    <td>Bin Location History Tracking and Consistency Enhancement in IRIS</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td></td>
+                    <td class="status-ticket-in-progress">Ticket in Progress</td>
+                </tr>
+                <tr>
+                    <td>321</td>
+                    <td>IRIS</td>
+                    <td>Frame Supply Issue: Orders Missing Frame-Only Designation and Routing Errors in D365</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>293</td>
+                    <td>D365</td>
+                    <td>Job Ticket Update Request for D365</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td></td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>220</td>
+                    <td>IRIS</td>
+                    <td>Enhancement: Cancellation Status Updates to HOYA</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td></td>
+                    <td class="status-on-hold">On Hold</td>
+                </tr>
+                <tr>
+                    <td>213</td>
+                    <td>IRIS</td>
+                    <td>Mass Job Transfer Enhancement</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td></td>
+                    <td class="status-release-assigned">Release Assigned</td>
+                </tr>
+                <tr>
+                    <td>184</td>
+                    <td>D365</td>
+                    <td>Sales Lines Not Created in D365, Product Shipped Not Identified</td>
+                    <td><span class="priority-icon3">3</span></td>
+                    <td>End to End</td>
+                    <td class="status-business-user-confirmation">Business User Confirmation</td>
+                </tr>
+                <tr>
+                    <td>426</td>
+                    <td>D365</td>
+                    <td>Enable Individual Wave Label Printing for Missing Work Labels</td>
+                    <td><span class="priority-icon4">4</span></td>
+                    <td>Processing</td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>199</td>
+                    <td>D365</td>
+                    <td>Enhancement: Add Julian Day to Work Label in D365</td>
+                    <td><span class="priority-icon4">4</span></td>
+                    <td></td>
+                    <td class="status-default">To Do</td>
+                </tr>
+                <tr>
+                    <td>175</td>
+                    <td>IRIS</td>
+                    <td>Enhancement: Mass Print Function for Job Sheets</td>
+                    <td><span class="priority-icon4">4</span></td>
+                    <td></td>
+                    <td class="status-release-assigned">Release Assigned</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="margin-top: 20px; text-align: center;">
+            <a href="https://nowoptics.sharepoint.com/sites/CAR/Lists/IRIS%20Issue%20%20Enhancement%20Tracker/AllItems.aspx" target="_blank">
+                <button style="padding: 10px 20px; font-size: 16px; background-color: #0056b3; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Go to Issues Tracker
+                </button>
+            </a>
+        </div>
+        <p style="font-weight: bold; background-color: yellow; padding: 10px; text-align: center;">Please be advised this is a preliminary list.</p>
+    </div>
+
+<script>
+    document.getElementById("current-date").innerHTML = new Date().toLocaleDateString();
+</script>
